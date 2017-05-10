@@ -1,0 +1,49 @@
+# Binominal logistic regression
+
+# Load the data
+library(caret)
+data("GermanCredit")
+
+# Partition the dataset
+s <- sample(1000, 800)
+#col <- c("ForeignWorker", "Property.RealEstate", "Housing.Own", "CreditHistory.Critical", "Age", "Class")
+#Revised the selection of independent vairables. "ForeignWorker" is removed
+col <- c("Property.RealEstate", "Housing.Own", "CreditHistory.Critical", "Age", "Class")
+train <- GermanCredit[s,col]
+test <- GermanCredit[-s,col]
+
+
+
+# Check the missing value
+library(Amelia)
+missmap(train, main = "missing value observed")
+
+
+
+# Train the model
+model <- glm(Class ~., family = binomial(link = "logit"), data = train)
+#model <- glm(Class ~ CreditHistory.Critical, family = binomial(link = "logit"), data = train)
+summary(model)
+# read the summary of the model
+# it shows that "ForeignWorker" is not a good indicator, so we remove it from the model.
+
+anova(model, test = "Chisq")
+confint(model) # generate confidence intervals for the regression coefficients
+exp(confint(model)) # scalethe coeffientis and confidence intervals
+
+
+
+# Assess the model fit
+# Use McFadden R^2 index:  0.2-0.4 indicates excellent model fit.
+library(pscl)
+pR2(model)
+
+
+# Predict the testset
+p <- predict(model, test, type = "response")
+p.ouput <- ifelse(p > 0.5, "Good", "Bad")
+accuracy <- mean(p.ouput == test$Class)
+accuracy
+
+
+
