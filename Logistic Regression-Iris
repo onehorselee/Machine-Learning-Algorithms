@@ -1,0 +1,36 @@
+#load the data
+library(datasets)
+data(iris)
+attach(iris)
+
+#partition the data
+s <- sample(150, 100)
+train <- iris[s,]
+test <- iris[-s,]
+
+#use plots to explore the data
+library(ggplot2)
+library(GGally)
+ggpairs(train)
+
+#load the nnet package, use its multinomial function
+library(nnet)
+model <- multinom(Species~., train)
+fitted(model)
+
+# prediction results
+p <- as.data.frame(predict(model, test, "probs"))
+
+# transform the predicted propobility to 1/0
+p[,1] <- ifelse(p[,1]>0.5, 1, 0)
+p[,2] <- ifelse(p[,2]>0.5, 1, 0)
+p[,3] <- ifelse(p[,3]>0.5, 1, 0)
+
+# add the column "predection" 
+p$prediction = max.col(p)
+p$prediction[which(p$prediction==1)] <- "setosa"
+p$prediction[which(p$prediction==2)] <- "versicolor"
+p$prediction[which(p$prediction==3)] <- "virginica"
+
+# accuracy of the prediction
+accuracy <- mean(p$prediction == test$Species)
