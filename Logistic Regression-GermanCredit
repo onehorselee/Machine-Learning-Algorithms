@@ -1,4 +1,5 @@
-# Binominal logistic regression
+# This is an example of Binominal logistic regression
+# That is, the dependent variable has only two categories 1, 0
 
 # Load the data
 library(caret)
