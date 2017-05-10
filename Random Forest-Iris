@@ -5,7 +5,7 @@ attach(iris)
 
 
 # Partition the data
-#set.seed(123)
+# set.seed(123)
 index <- sample(2, nrow(iris), replace = T, prob = c(0.7, 0.3))
 train <- iris[index==1,]
 test <- iris[index==2,]
@@ -13,9 +13,16 @@ test <- iris[index==2,]
 # Load the fodomForest package
 library(randomForest)
 model <- randomForest(Species~., train, ntree = 500)
-# the default is 500 trees, more is better
+# the default is 500 trees, more is better, but also is slower
 
 p <- predict(model, test)
 
+# feature selection
+importance(model)
+
+# Get the individual tree 
+getTree(model, 1, labelVar = T)
+
+# Calculate the accuracy
 accuracy <- mean(p==test$Species)
 accuracy
