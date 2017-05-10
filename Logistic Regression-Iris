@@ -1,3 +1,7 @@
+# This is an example of Multinominal logistic regression
+# The dependent variable has more than two categories. In this case of Iris dataset: 3 species
+
+
 #load the data
 library(datasets)
 data(iris)
@@ -34,3 +38,4 @@ p$prediction[which(p$prediction==3)] <- "virginica"
 
 # accuracy of the prediction
 accuracy <- mean(p$prediction == test$Species)
+accuracy
