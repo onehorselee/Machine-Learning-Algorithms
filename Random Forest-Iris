@@ -5,24 +5,31 @@ attach(iris)
 
 
 # Partition the data
-# set.seed(123)
+#set.seed(123)
 index <- sample(2, nrow(iris), replace = T, prob = c(0.7, 0.3))
 train <- iris[index==1,]
 test <- iris[index==2,]
 
 # Load the fodomForest package
 library(randomForest)
-model <- randomForest(Species~., train, ntree = 500)
-# the default is 500 trees, more is better, but also is slower
+model <- randomForest(Species~., train, ntree = 500)# the default is 500 trees, more is better, but also is slower
+plot(model)
 
 p <- predict(model, test)
 
 # feature selection
 importance(model)
+varImpPlot(model)
 
 # Get the individual tree 
 getTree(model, 1, labelVar = T)
 
+# Plot the margin of observations from the randomForest classifier. 
+# The margin of a data point is defined as the proportion of votes for the correct class minus maximum proportion of
+# votes for the other classes. Thus under majority votes, positive margin means correct classification, and vice versa.
+plot(margin(model,test$Species))
+
 # Calculate the accuracy
 accuracy <- mean(p==test$Species)
 accuracy
+nrow(test) * (1-accuracy) 
