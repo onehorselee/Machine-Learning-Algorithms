@@ -9,3 +9,7 @@
     # multinomial logistic resgression - iris dataset
 
 # Random Forest
+    # iris dataset
+
+# KNN- K nearest neighbouring classifcation
+    # UCI - breast cancer original dataset
