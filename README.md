@@ -11,5 +11,5 @@
 # Random Forest
     # iris dataset
 
-# KNN- K nearest neighbouring classifcation
+# KNN:  K-nearest-neighbours classification
     # UCI - breast cancer original dataset
