@@ -13,3 +13,9 @@
 
 # KNN:  K-nearest-neighbours classification
     # UCI - breast cancer original dataset
+    
+# Time Series
+    # import time series
+    # index and plot time series data
+    # basic test of time series
+    # prediction of future
