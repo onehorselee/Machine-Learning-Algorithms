@@ -17,5 +17,5 @@
 # Time Series
     # import time series
     # index and plot time series data
-    # basic test of time series
-    # prediction of future
+    # basic statistics of time series
+    # prediction of the future
