@@ -1,8 +1,6 @@
-# Outline: 
+'''Outline: 
 # how to load and formate a single time series
-# how to index and plot the time series data
-
-
+# how to index and plot the time series data '''
 
 import pandas as pd
 import numpy as np
